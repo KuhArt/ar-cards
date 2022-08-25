@@ -1,174 +1,19 @@
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-</head>
-
-<body style="margin: 0;">  
-
-  <script>
-    const students = [{
-        name: 'Alena Abrosimava',
-        slug: 'alena-abrosimava'
-      },
-      {
-        name: 'Alena Pakhilava',
-        slug: 'alena-pakhilava'
-      },
-      {
-        name: 'Olga Chernova',
-        slug: 'olga-chernova'
-      },
-      {
-        name: 'Victoria Taratuta',
-        slug: 'victoria-taratuta'
-      },
-      {
-        name: 'Dzmitry Apanovich',
-        slug: 'dzmitry-apanovich'
-      },
-      {
-        name: 'Nikita Kotovich',
-        slug: 'nikita-kotovich'
-      },
-      {
-        name: 'Saveliy-Georgiy Biryukov',
-        slug: 'saveliy-georgiy-biryukov'
-      },
-      {
-        name: 'Vadim Samal',
-        slug: 'vadim-samal'
-      },
-      {
-        name: 'Kseniya Krasnikova',
-        slug: 'kseniya-krasnikova'
-      },
-      {
-        name: 'Katia Zakharina',
-        slug: 'katia-zakharina'
-      },
-      {
-        name: 'Veronika Ulyanchik',
-        slug: 'veronika-ulyanchik'
-      },
-      {
-        name: 'David Saley',
-        slug: 'david-saley'
-      },
-      {
-        name: 'Matsvei Balakhonau',
-        slug: 'matsvei-balakhonau'
-      },
-      {
-        name: 'Raman Kurashevich',
-        slug: 'raman-kurashevich'
-      },
-      {
-        name: 'Daria Kotova',
-        slug: 'daria-kotova'
-      },
-      {
-        name: 'Alexey Kasperovich',
-        slug: 'alexey-kasperovich'
-      },
-      {
-        name: 'Oleg Zaicev',
-        slug: 'oleg-zaicev'
-      },
-      {
-        name: 'Sasha Tsarikova',
-        slug: 'sasha-tsarikova'
-      },
-    ];
-    const queryParams = new URLSearchParams(window.location.search);
-    let studentId = +queryParams.get('studentId');
-
-    if (studentId < 0 || studentId > students.length || !studentId) {
-      studentId = 1;
-    }
-
-    const student = students[studentId];
-    console.log('Student id: ', studentId);
-    console.log('Student: ', student);
-
-    const modelViewerEl = document.createElement('model-viewer');
-
-    modelViewerEl.setAttribute('alt', 'Certificate');
-    modelViewerEl.setAttribute('src', `assets/${studentId}/card-rotate.glb`);
-    modelViewerEl.setAttribute('ios-src', `assets/${studentId}/card-rotate.usdz`);
-    modelViewerEl.setAttribute('ar', '');
-    modelViewerEl.setAttribute('ar-modes', 'scene-viewer quick-look');
-    modelViewerEl.setAttribute('shadow-intensity', '1');
-    modelViewerEl.setAttribute('shadow-intensity', '1');
-    modelViewerEl.setAttribute('camera-controls', '');
-    modelViewerEl.setAttribute('autoplay', '');
-    modelViewerEl.setAttribute('autoplay', '');
-    modelViewerEl.setAttribute('touch-action', 'pan-y');
-
-    modelViewerEl.style.width = '100vw';
-    modelViewerEl.style.height = 'calc(100vh - 100px)';
-
-    document.getElementsByTagName('body')[0].appendChild(modelViewerEl);
-
-    const divEl = document.createElement('div');
-    divEl.style.position = 'absolute';
-    divEl.style.bottom = '100px';
-    divEl.style.transform = 'translateX(-50%)';
-    divEl.style.display = 'flex';
-    divEl.style['font-size'] = '16px';
-    divEl.style.gap = '8px';
-    divEl.style.justifyContent = 'space-between';
-    divEl.style.left = '50%';
-
-    document.getElementsByTagName('body')[0].appendChild(divEl);
-
-    const aEl = document.createElement('a');
-    aEl.setAttribute('href', `https://startup-summer.paralect.com/certificates/2022/${student.slug}`);
-
-    aEl.textContent = 'View Web Version';
-    aEl.style.padding = '8px';
-    aEl.style.background = 'white';
-    aEl.style.color = 'black';
-    aEl.style['box-shadow'] = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
-    aEl.style['border-radius'] = '16px';
-    aEl.style['text-decoration'] = 'none';
-
-
-    divEl.appendChild(aEl);
-
-    const buttonEl = document.createElement('button');
-
-    buttonEl.textContent = '🔗';
-    buttonEl.style['border-radius'] = '16px';
-    buttonEl.style.padding = '8px';
-    buttonEl.style.background = 'white';
-    buttonEl.style.border = 'none';
-    buttonEl.style['box-shadow'] = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
-    buttonEl.style.cursor = 'pointer';
-
-
-    buttonEl.addEventListener('click', async () => {
-      try {
-        const shareData = {
-          title: 'Startup Summer Certificate',
-          text: 'Look at Startup Summer Certificate!',
-          url: `${window.location.href}?studentId=${studentId}`
-        }
-        await navigator.share(shareData);
-      } catch (err) {
-      }
-    });
-
-
-    divEl.appendChild(buttonEl);
-  </script>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <a href="assets/1/card-rotate.usdz" class="external-link" >
-     Pompich test
-  </a>
-</body>
-
+<html>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <body style="margin : 0px; overflow: hidden;">
+        <a-scene embedded arjs>
+        <a-marker type="pattern" url="https://5176-46-53-253-24.ngrok.io/assets/pattern-track-marker.patt">
+            <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+            <a-entity
+            position="0 0 0"
+            scale="100 100 100"
+            gltf-model="https://5176-46-53-253-24.ngrok.io/assets/1/card.glb"
+            animation__rotate = "property: rotation; dur: 4000; easing: easeOutQuart; dir: normal; from: -90 0 0; to: -90 360 0; loop: true;">
+            ></a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+        </a-scene>
+    </body>
 </html>
