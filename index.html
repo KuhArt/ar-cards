@@ -1,19 +1,163 @@
 <html>
-    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-    <!-- we import arjs version without NFT but with marker + location based support -->
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <body style="margin : 0px; overflow: hidden;">
-        <a-scene embedded arjs>
-        <a-marker type="pattern" url="https://ar-cards.vercel.app/assets/pattern-track-marker.patt">
-            <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
-            <a-entity
-            position="0 0 0"
-            scale="100 100 100"
-            gltf-model="https://ar-cards.vercel.app/assets/1/card.glb"
-            animation__rotate = "property: rotation; dur: 4000; easing: easeOutQuart; dir: normal; from: -90 0 0; to: -90 360 0; loop: true;">
-            ></a-entity>
-        </a-marker>
-        <a-entity camera></a-entity>
+<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+<!-- we import arjs version without NFT but with marker + location based support -->
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+<body style="margin : 0px; overflow: hidden;">
+    <script>
+        const students = [{
+                name: 'Alena Abrosimava',
+                slug: 'alena-abrosimava'
+            },
+            {
+                name: 'Alena Pakhilava',
+                slug: 'alena-pakhilava'
+            },
+            {
+                name: 'Olga Chernova',
+                slug: 'olga-chernova'
+            },
+            {
+                name: 'Victoria Taratuta',
+                slug: 'victoria-taratuta'
+            },
+            {
+                name: 'Dzmitry Apanovich',
+                slug: 'dzmitry-apanovich'
+            },
+            {
+                name: 'Nikita Kotovich',
+                slug: 'nikita-kotovich'
+            },
+            {
+                name: 'Saveliy-Georgiy Biryukov',
+                slug: 'saveliy-georgiy-biryukov'
+            },
+            {
+                name: 'Vadim Samal',
+                slug: 'vadim-samal'
+            },
+            {
+                name: 'Kseniya Krasnikova',
+                slug: 'kseniya-krasnikova'
+            },
+            {
+                name: 'Katia Zakharina',
+                slug: 'katia-zakharina'
+            },
+            {
+                name: 'Veronika Ulyanchik',
+                slug: 'veronika-ulyanchik'
+            },
+            {
+                name: 'David Saley',
+                slug: 'david-saley'
+            },
+            {
+                name: 'Matsvei Balakhonau',
+                slug: 'matsvei-balakhonau'
+            },
+            {
+                name: 'Raman Kurashevich',
+                slug: 'raman-kurashevich'
+            },
+            {
+                name: 'Daria Kotova',
+                slug: 'daria-kotova'
+            },
+            {
+                name: 'Alexey Kasperovich',
+                slug: 'alexey-kasperovich'
+            },
+            {
+                name: 'Oleg Zaicev',
+                slug: 'oleg-zaicev'
+            },
+            {
+                name: 'Sasha Tsarikova',
+                slug: 'sasha-tsarikova'
+            },
+        ];
+        const queryParams = new URLSearchParams(window.location.search);
+        let studentId = +queryParams.get('studentId');
+
+        if (studentId < 0 || studentId > students.length || !studentId) {
+            studentId = 1;
+        }
+
+        const student = students[studentId];
+        console.log('Student id: ', studentId);
+        console.log('Student: ', student);
+
+        document.getElementsByTagName('body')[0].innerHTML=`
+        <a-scene vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true" embedded arjs>
+            <a-marker type="pattern" url="${window.location.origin}/assets/pattern-track-marker.patt">
+                <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+                <a-entity position="0 0 -1" scale="50 50 50"
+                    gltf-model="${window.location.origin}/assets/${studentId}/card.glb"
+                    animation__rotate="property: rotation; dur: 1500; easing: linear; dir: normal; from: -90 0 0; to: -90 360 0; loop: true;">
+                    >
+                </a-entity>
+            </a-marker>
+            <a-entity camera></a-entity>
         </a-scene>
-    </body>
+        `
+
+        const divEl = document.createElement('div');
+        divEl.style.position = 'absolute';
+        divEl.style.bottom = '16px';
+        divEl.style.width = '100%';
+        divEl.style.transform = 'translateX(-50%)';
+        divEl.style.display = 'flex';
+        divEl.style['font-size'] = '24px';
+        divEl.style['font-family'] = "'Tahoma'";
+        divEl.style.gap = '8px';
+        divEl.style.justifyContent = 'center';
+        divEl.style.left = '50%';
+
+        document.getElementsByTagName('body')[0].appendChild(divEl);
+
+        const aEl = document.createElement('a');
+        aEl.setAttribute('href', `https://startup-summer.paralect.com/certificates/2022/${student.slug}`);
+
+        aEl.textContent = 'View Web Version';
+        aEl.style.padding = '16px';
+        aEl.style.background = 'white';
+        aEl.style.color = 'black';
+        aEl.style['box-shadow'] = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
+        aEl.style['border-radius'] = '32px';
+        aEl.style['text-decoration'] = 'none';
+
+
+        divEl.appendChild(aEl);
+
+        const buttonEl = document.createElement('button');
+
+        buttonEl.textContent = '🔗';
+        buttonEl.style['border-radius'] = '50%';
+        buttonEl.style.padding = '8px';
+        buttonEl.style.width = '64px';
+        buttonEl.style.height = '64px';
+        buttonEl.style.background = 'white';
+        buttonEl.style.border = 'none';
+        buttonEl.style['box-shadow'] = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
+        buttonEl.style.cursor = 'pointer';
+
+
+        buttonEl.addEventListener('click', async () => {
+            try {
+                const shareData = {
+                    title: 'Startup Summer Certificate',
+                    text: 'Look at Startup Summer Certificate!',
+                    url: `${window.location.href}?studentId=${studentId}`
+                }
+                await navigator.share(shareData);
+            } catch (err) {}
+        });
+
+
+        divEl.appendChild(buttonEl);
+    </script>
+</body>
+
 </html>
